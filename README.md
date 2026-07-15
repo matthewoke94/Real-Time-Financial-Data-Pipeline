@@ -1,2 +1,23 @@
-# Real-Time-Financial-Data-Pipeline
-Production-grade real-time financial data pipeline using Python, Apache Kafka, PostgreSQL and Docker for streaming market data ingestion and analytics.
+Project Overview
+
+Architecture
+
+Features
+
+Technology Stack
+
+Project Structure
+
+Installation
+
+How to Run
+
+Kafka Streaming
+
+Database Schema
+
+Sample Output
+
+Future Improvements
+
+Author

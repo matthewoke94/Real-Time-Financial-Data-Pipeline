@@ -1,0 +1,7 @@
+pandas
+sqlalchemy
+psycopg2-binary
+Faker
+loguru
+kafka-python
+python-dotenv
