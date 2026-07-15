@@ -268,16 +268,16 @@ Example Output
 
 ---
 
-# 🔮 Future Improvements
+## 🚀 Future Improvements
 
-- Kafka topic partitioning
-- Multi-consumer architecture
-- Apache Spark Streaming integration
-- Apache Airflow orchestration
-- Grafana monitoring
-- Power BI dashboard
-- Data quality validation
-- Cloud deployment on AWS
+- Deploy on AWS (EC2 + RDS)
+- Integrate Apache Spark Streaming
+- Add Apache Airflow orchestration
+- Build Power BI dashboard
+- Build Grafana monitoring dashboard
+- Add Kafka partitions and replication
+- Implement automated data quality validation
+- Add CI/CD using GitHub Actions
 
 ---
 
