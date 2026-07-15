@@ -1,145 +1,114 @@
 # 🚀 Real-Time Financial Data Pipeline
 
-A production-style real-time data engineering project that streams simulated financial transactions through Apache Kafka, stores them in PostgreSQL, and enables SQL-based analytics.
+An end-to-end real-time financial data engineering project that streams financial transactions through Apache Kafka, processes them with Python, and stores them in PostgreSQL for real-time analytics.
 
 ---
 
-# 📖 Overview
+# 📌 Project Overview
 
-This project demonstrates an event-driven data pipeline that simulates financial transactions in real time.
+This project simulates a real-world financial transaction streaming system.
 
-Transactions are generated using Python and Faker, published to Apache Kafka, consumed by a Kafka Consumer, and loaded into PostgreSQL for downstream analytics.
+The pipeline continuously generates financial transactions, publishes them to Apache Kafka, consumes them in real time, and loads them into PostgreSQL for analytics.
 
-The project showcases core Data Engineering concepts including data streaming, event processing, Docker containerization, relational database storage, and SQL analytics.
-
----
-
-# 🎯 Business Problem
-
-Financial institutions process thousands of transactions every second.
-
-Traditional batch processing introduces delays before transactions become available for reporting and analytics.
-
-This project demonstrates how streaming technologies can provide near real-time ingestion and storage of transactional data for operational reporting and business intelligence.
+The project demonstrates modern data engineering concepts including event-driven architecture, streaming ETL, Docker containerization, and SQL analytics.
 
 ---
 
-# 🏗️ Architecture
+# 🏗 Architecture
 
 ```
-                Fake Financial Transactions
-                         │
-                         ▼
-                  Python Producer
-                         │
-                         ▼
-                    Apache Kafka
-                         │
-                         ▼
-                  Python Consumer
-                         │
-                         ▼
-                    PostgreSQL
-                         │
-                         ▼
-                  SQL Analytics
+Python Producer
+       │
+       ▼
+ Apache Kafka
+       │
+       ▼
+Python Consumer
+       │
+       ▼
+ PostgreSQL
+       │
+       ▼
+ SQL Analytics
 ```
 
 ---
 
-# ⚙️ Tech Stack
+# 🛠 Tech Stack
 
-- Python 3.12
+- Python
 - Apache Kafka
-- PostgreSQL 16
+- PostgreSQL
 - Docker
 - Docker Compose
-- SQLAlchemy
-- Pandas
+- SQL
 - Faker
 - kafka-python
-- Git
-- GitHub
+
+---
+
+# ⚙ Pipeline Workflow
+
+1. Generate simulated financial transactions.
+2. Publish transactions to Apache Kafka.
+3. Consume streaming messages.
+4. Validate and transform data.
+5. Load transactions into PostgreSQL.
+6. Query the database for business insights.
+
+---
+
+# ✨ Features
+
+- Real-time financial transaction streaming
+- Kafka Producer & Consumer architecture
+- PostgreSQL storage
+- SQL analytics
+- Dockerized environment
+- Modular ETL design
+- Fake transaction generation
+- Streaming data pipeline
 
 ---
 
 # 📂 Project Structure
 
 ```
-Real-Time-Financial-Data-Pipeline/
-
-├── data/
-├── docker/
+Real-Time-Financial-Data-Pipeline
+│
 ├── docs/
-│   ├── architecture.md
-│   └── data_dictionary.md
-├── logs/
 ├── sql/
-│   ├── schema.sql
-│   └── queries.sql
 ├── src/
-│   ├── config.py
+│   ├── producer.py
 │   ├── consumer.py
 │   ├── database.py
 │   ├── extract.py
-│   ├── load.py
-│   ├── logger.py
-│   ├── producer.py
-│   ├── run_consumer.py
-│   ├── run_producer.py
 │   ├── transform.py
-│   └── utils.py
-├── tests/
+│   ├── load.py
+│   ├── config.py
+│   ├── logger.py
+│   ├── utils.py
+│   ├── run_producer.py
+│   └── run_consumer.py
+│
 ├── docker-compose.yml
 ├── requirements.txt
-└── README.md
+├── README.md
+└── LICENSE
 ```
 
 ---
 
-# 🚀 Features
+# 🚀 Installation
 
-- Generate realistic financial transaction records
-- Stream transactions using Apache Kafka
-- Consume events in real time
-- Persist data into PostgreSQL
-- Perform SQL analytics
-- Containerized with Docker Compose
-- Modular Python project structure
-
----
-
-# 📊 Transaction Schema
-
-Each transaction contains:
-
-| Column | Description |
-|---------|-------------|
-| id | Unique transaction ID |
-| customer_name | Customer name |
-| account_number | IBAN account |
-| transaction_type | Deposit / Withdrawal / Transfer / Payment |
-| amount | Transaction amount |
-| currency | Currency |
-| country | Country |
-| transaction_time | Timestamp |
-| status | SUCCESS / FAILED / PENDING |
-
----
-
-# ▶️ Running the Project
-
-## 1. Clone the repository
+Clone the repository
 
 ```bash
 git clone https://github.com/matthewoke94/Real-Time-Financial-Data-Pipeline.git
-
 cd Real-Time-Financial-Data-Pipeline
 ```
 
----
-
-## 2. Install dependencies
+Install dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -147,23 +116,21 @@ pip install -r requirements.txt
 
 ---
 
-## 3. Start Docker services
+# ▶ Running the Project
+
+Start Docker
 
 ```bash
 docker compose up -d
 ```
 
----
-
-## 4. Generate transactions
+Run Producer
 
 ```bash
 python -m src.run_producer
 ```
 
----
-
-## 5. Consume transactions
+Run Consumer
 
 ```bash
 python -m src.run_consumer
@@ -171,72 +138,35 @@ python -m src.run_consumer
 
 ---
 
-## 6. Verify data
+# 📊 SQL Analytics
+
+## Transaction Status Distribution
 
 ```sql
-SELECT COUNT(*)
-FROM financial_transactions;
-```
-
----
-
-# 📈 Example Analytics
-
-## Total Transactions
-
-```sql
-SELECT COUNT(*)
-FROM financial_transactions;
-```
-
-Result
-
-```
-200
-```
-
----
-
-## Transactions by Status
-
-```sql
-SELECT status,
-COUNT(*)
+SELECT status, COUNT(*)
 FROM financial_transactions
 GROUP BY status;
 ```
 
-Example Output
-
-| Status | Count |
-|---------|------:|
-| SUCCESS | 56 |
-| FAILED | 68 |
-| PENDING | 76 |
-
----
-
-## Transactions by Type
+## Transaction Type Distribution
 
 ```sql
-SELECT transaction_type,
-COUNT(*)
+SELECT transaction_type, COUNT(*)
 FROM financial_transactions
 GROUP BY transaction_type;
 ```
 
-Example Output
+## Top Countries
 
-| Type | Count |
-|------|------:|
-| Withdrawal | 70 |
-| Payment | 54 |
-| Transfer | 42 |
-| Deposit | 34 |
+```sql
+SELECT country, COUNT(*)
+FROM financial_transactions
+GROUP BY country
+ORDER BY COUNT(*) DESC
+LIMIT 10;
+```
 
----
-
-## Average Transaction Amount
+## Amount Statistics
 
 ```sql
 SELECT
@@ -246,53 +176,96 @@ MIN(amount)
 FROM financial_transactions;
 ```
 
-Example Output
+---
 
-| Average | Maximum | Minimum |
-|---------:|--------:|--------:|
-| 5300.23 | 9973.04 | 172.58 |
+# 📸 Screenshots
+
+## Docker Containers Running
+
+![Docker Running](images/docker-running.png)
+
+---
+
+## Kafka Producer
+
+![Kafka Producer](images/producer-output.png)
+
+---
+
+## Kafka Consumer
+
+![Kafka Consumer](images/consumer-output.png)
+
+---
+
+## Database Preview
+
+![Database Preview](images/database-preview.png)
+
+---
+
+## SQL Analytics
+
+![SQL Analytics](images/sql-analytics.png)
+
+---
+
+# 📈 Results
+
+- Streamed over **500 financial transactions** through Apache Kafka.
+- Successfully consumed and stored streaming data in PostgreSQL.
+- Built an event-driven real-time data pipeline.
+- Performed SQL analytics on streaming data.
+- Containerized the entire application using Docker Compose.
+- Demonstrated a production-style streaming ETL workflow.
 
 ---
 
 # 💡 Skills Demonstrated
 
-- Event-driven architecture
-- Real-time data streaming
+- Python
 - Apache Kafka
 - PostgreSQL
-- SQL analytics
-- Docker containerization
-- Data Engineering workflows
-- Python application development
-- Data ingestion pipelines
+- Docker
+- Docker Compose
+- SQL
+- ETL Pipelines
+- Data Streaming
+- Data Engineering
+- Git & GitHub
 
 ---
 
-## 🚀 Future Improvements
+# 🔮 Future Improvements
 
-- Deploy on AWS (EC2 + RDS)
-- Integrate Apache Spark Streaming
-- Add Apache Airflow orchestration
-- Build Power BI dashboard
-- Build Grafana monitoring dashboard
-- Add Kafka partitions and replication
-- Implement automated data quality validation
-- Add CI/CD using GitHub Actions
+- Apache Airflow orchestration
+- Apache Spark streaming
+- AWS deployment (EC2 & RDS)
+- Power BI dashboard
+- Grafana monitoring
+- Kafka partitioning and replication
+- CI/CD with GitHub Actions
 
 ---
+
+# ---
 
 # 👨‍💻 Author
 
 **Matthew James**
 
-Data Engineer
+Data Engineer | Python | SQL | ETL | Kafka | PostgreSQL | Docker
 
-GitHub:
+GitHub: https://github.com/matthewoke94
 
-https://github.com/matthewoke94
+Feel free to connect or explore my other data engineering projects.
 
 ---
 
-# ⭐ Repository
+# 📄 License
 
-If you found this project useful, consider giving it a ⭐.
+This project is licensed under the MIT License.
+
+Copyright (c) 2026 Matthew James
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software.
